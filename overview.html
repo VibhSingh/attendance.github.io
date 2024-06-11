@@ -3,10 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Attendance: Overview</title>
+<title>Attendance Percentage</title>
 <link rel="icon" href="/luffy_hat.jpg">
 <link rel="stylesheet" type="text/css" href="styles.css">
+<style>
+  /* Styles for the navbar, container, and table */
+  .meter-container {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+  }
 
+  .meter-bar {
+    height: 100%;
+  }
+
+  .meter-bar.green {
+    background: green;
+  }
+
+  .meter-bar.red {
+    background: red;
+  }
+
+  .percentage {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
 
@@ -21,7 +49,7 @@
     <table>
       <thead>
         <tr>
-          <th>Class</th>
+          <th>Subject</th>
           <th>Attendance</th>
         </tr>
       </thead>
@@ -35,10 +63,18 @@
 <script src="script.js"></script>
 <script>
 window.onload = function() {
+  // Define array of subject names
+  const subjects = ["FMT", "FMT-P", "Ophthalmology", "Ophthalmology-P", "ENT", "ENT-P", "CM", "CM-P", "Medicine", "Medicine-P", "Surgery", "Surgery-P", "Obgy", "Obgy-P", "Paedia", "Paedia-P", "Ortho", "Ortho-P", "DVL", "DVL-P", "Radiology", "Radiology-P", "Psychiatry", "Psychiatry-P", "Anesthesia", "Anesthesia-P"];
+
   // Function to calculate attendance percentage for each class
   function calculateAttendancePercentage(attendanceData) {
     const totalDays = attendanceData.present + attendanceData.absent;
     return totalDays > 0 ? ((attendanceData.present / totalDays) * 100).toFixed(2) : 0;
+  }
+
+  // Function to get the required minimum attendance percentage for a subject
+  function getRequiredPercentage(index) {
+    return (index % 2 === 0) ? 75 : 80;
   }
 
   // Function to populate attendance percentage meter bars for each class
@@ -46,19 +82,20 @@ window.onload = function() {
     const attendancePercentageTableBody = document.getElementById('attendancePercentageTableBody');
 
     // Loop through each class
-    for (let i = 1; i <= 26; i++) {
-      const subject = `subject${i}`;
-      const attendanceData = JSON.parse(localStorage.getItem(`${subject}_attendanceData`)) || { "present": 0, "absent": 0 };
+    subjects.forEach((subject, index) => {
+      const subjectKey = `subject${index + 1}`;
+      const attendanceData = JSON.parse(localStorage.getItem(`${subjectKey}_attendanceData`)) || { "present": 0, "absent": 0 };
       const attendancePercentage = calculateAttendancePercentage(attendanceData);
+      const requiredPercentage = getRequiredPercentage(index);
 
       // Determine meter bar color based on attendance percentage
-      const barColorClass = attendancePercentage < 75 ? 'red' : 'green';
+      const barColorClass = attendancePercentage < requiredPercentage ? 'red' : 'green';
 
       // Create table row with meter bar and percentage
       const row = document.createElement('tr');
-      row.innerHTML = `<td>Subject ${i}</td><td><div class="meter-container"><div class="meter-bar ${barColorClass}" style="width: ${attendancePercentage}%;"></div></div><div class="percentage">${attendancePercentage}%</div></td>`;
+      row.innerHTML = `<td>${subject}</td><td><div class="meter-container"><div class="meter-bar ${barColorClass}" style="width: ${attendancePercentage}%;"></div><div class="percentage">${attendancePercentage}%</div></div></td>`;
       attendancePercentageTableBody.appendChild(row);
-    }
+    });
   }
 
   // Call function to populate attendance percentage meter bars

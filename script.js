@@ -36,7 +36,7 @@ function updateAttendanceSummary(attendanceData) {
   document.getElementById('totalAbsent').textContent = totalAbsent;
   document.getElementById('presentPercentage').textContent = presentPercentage + "%";
 
-  const extrasAvailableMessage = extrasAvailable >= 0 ? `${extrasAvailable} classes can be missed before present percentage falls below 75%.` : "Please attend!";
+  const extrasAvailableMessage = extrasAvailable >= 0 ? `${extrasAvailable} classes can be missed before present percentage falls below the minimum required percentage.` : "Please attend!";
   document.getElementById('extrasAvailable').textContent = extrasAvailableMessage;
 }
 
@@ -52,10 +52,13 @@ function resetAttendance() {
   updateAttendanceSummary(resetData);
 }
 
-// Function to calculate number of classes a student can be absent in before present percentage falls below 75%
+// Function to calculate number of classes a student can be absent in before present percentage falls below the required minimum
 function calculateExtrasAvailable(totalPresent, totalAbsent) {
+  const subject = document.getElementById('subjectSelect').value;
+  const subjectNumber = parseInt(subject.match(/\d+/)[0]);
+  const requiredPresentPercentage = (subjectNumber % 2 === 1) ? 75 : 80;
+
   const presentPercentage = totalPresent / (totalPresent + totalAbsent) * 100;
-  const requiredPresentPercentage = 75;
   const classesRequired = Math.ceil(totalPresent / (requiredPresentPercentage / 100) - totalPresent);
   return classesRequired - totalAbsent;
 }
