@@ -74,3 +74,22 @@ h1 {
 .input-bar{
   width: 50px;
 }
+
+.navbar {
+  background-color: #333; /* Background color */
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left; /* Float the links to the left */
+  display: block;
+  color: white; /* Text color */
+  text-align: center; /* Center align the text */
+  padding: 14px 16px; /* Padding around the links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.navbar a:hover {
+  background-color: #ddd; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
