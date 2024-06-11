@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Checker</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Attendance Checker</h1>
+  <div class="attendance-form">
+    <label for="subjectSelect">Select Subject:</label>
+    <select id="subjectSelect" onchange="changeSubject()">
+      <option value="subject1">Subject 1</option>
+      <option value="subject2">Subject 2</option>
+      <option value="subject3">Subject 3</option>
+      <option value="subject4">Subject 4</option>
+      <option value="subject5">Subject 5</option>
+      <option value="subject6">Subject 6</option>
+      <option value="subject7">Subject 7</option>
+      <option value="subject8">Subject 8</option>
+      <option value="subject9">Subject 9</option>
+      <option value="subject10">Subject 10</option>
+      <option value="subject11">Subject 11</option>
+      <option value="subject12">Subject 12</option>
+      <option value="subject13">Subject 13</option>
+      <option value="subject14">Subject 14</option>
+      <option value="subject15">Subject 15</option>
+      <option value="subject16">Subject 16</option>
+      <option value="subject17">Subject 17</option>
+      <option value="subject18">Subject 18</option>
+      <option value="subject19">Subject 19</option>
+      <option value="subject20">Subject 20</option>
+      <option value="subject21">Subject 21</option>
+      <option value="subject22">Subject 22</option>
+      <option value="subject23">Subject 23</option>
+      <option value="subject24">Subject 24</option>
+      <option value="subject25">Subject 25</option>
+      <option value="subject26">Subject 26</option>
+    </select>
+    <button onclick="toggleAttendance('Present')">Mark Present</button>
+    <button onclick="toggleAttendance('Absent')">Mark Absent</button>
+  </div>
+
+  <div class="attendance-summary" id="attendanceSummary">
+    <h2>Attendance Summary</h2>
+    <p>Last Attendance Date: <span id="lastAttendanceDate">None</span></p>
+    <p>Total Present: <span id="totalPresent">0</span></p>
+    <p>Total Absent: <span id="totalAbsent">0</span></p>
+    <p>Present Percentage: <span id="presentPercentage">0%</span></p>
+    <p id="extrasAvailable"></p>
+  </div>
+
+  <div class="reset-button">
+    <label for="resetPresent">Reset Present:</label>
+    <input class="input-bar" type="number" id="resetPresent" min="0">
+    <label for="resetAbsent">Reset Absent:</label>
+    <input class="input-bar" type="number" id="resetAbsent" min="0">
+    <button onclick="resetAttendance()">Reset Entries</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
